@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.Primitives;
 
-namespace Payments.Api.ApiKeyAuthentication
+namespace RiotGames.Payments.Api.ApiKeyAuthentication
 {
     internal class BasicAuthenticationParser
     {

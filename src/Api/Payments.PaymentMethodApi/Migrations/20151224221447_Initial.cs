@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Data.Entity.Migrations;
 
-namespace Payments.PaymentMethodApi.Migrations
+namespace RiotGames.Payments.Api.PaymentMethodApi.Migrations
 {
     public partial class Initial : Migration
     {

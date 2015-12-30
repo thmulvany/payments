@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Payments.Api.ApiKeyAuthentication
+namespace RiotGames.Payments.Api.ApiKeyAuthentication
 {
     public class InvalidCredentialsException : Exception
     { 

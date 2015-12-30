@@ -1,14 +1,16 @@
 using System;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.Data.Entity.Migrations;
 using RiotGames.Payments.Api.PaymentMethodApi.Repositories;
 
 namespace RiotGames.Payments.Api.PaymentMethodApi.Migrations
 {
     [DbContext(typeof(PaymentMethodContext))]
-    partial class PaymentMethodContextModelSnapshot : ModelSnapshot
+    [Migration("20151227225131_AlterInactivatedOn")]
+    partial class AlterInactivatedOn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");

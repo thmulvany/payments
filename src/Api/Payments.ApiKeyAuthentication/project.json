@@ -1,8 +1,8 @@
-﻿{
+{
   "webroot": "wwwroot",
   "version": "1.0.0-*",
   "tooling": {
-    "defaultNamespace": "Payments.Api.ApiKeyAuthentication"
+    "defaultNamespace": "RiotGames.Payments.Api.ApiKeyAuthentication"
   },
   "commands": {
     "web": "Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:5000"
@@ -27,5 +27,7 @@
     "wwwroot",
     "node_modules",
     "bower_components"
-  ]
+  ],
+  "dependencies": {
+  }
 }

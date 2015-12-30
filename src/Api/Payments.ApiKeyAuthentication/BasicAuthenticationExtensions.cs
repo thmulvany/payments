@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNet.Builder;
 
-namespace Payments.Api.ApiKeyAuthentication
+namespace RiotGames.Payments.Api.ApiKeyAuthentication
 {
     public static class BasicAuthenticationExtensions
     {

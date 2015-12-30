@@ -1,5 +1,5 @@
 using System;
-namespace Payments.Api.PaymentMethodApi.Exceptions
+namespace RiotGames.Payments.Api.PaymentMethodApi.Exceptions
 {
     public class PaymentMethodInvalidException : Exception
     {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
 
-namespace Payments.Api.ApiKeyAuthentication
+namespace RiotGames.Payments.Api.ApiKeyAuthentication
 {
     public class BasicAuthentication
     {
@@ -28,7 +28,11 @@ namespace Payments.Api.ApiKeyAuthentication
             catch (InvalidCredentialsException)
             {
                 context.Response.StatusCode = 401;
-                context.Response.Headers.Add("WWW-Authenticate", new[] { "Token" });
+                context.Response.Headers.Add("WWW-Authenticate", new[] {"Token"});
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
     }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
-using Payments.Api.PaymentMethodApi.Models;
+using RiotGames.Payments.Api.PaymentMethodApi.Models;
 
-namespace Payments.Api.PaymentMethodApi.Repositories
+namespace RiotGames.Payments.Api.PaymentMethodApi.Repositories
 {
     public class PaymentMethodRepo : IPaymentMethodRepo
     {
@@ -16,16 +16,21 @@ namespace Payments.Api.PaymentMethodApi.Repositories
             _context = context;
         }
 
-        public async Task<int> CreatePaymentMethodAsync(PaymentMethod paymentMethod)
+        public async Task<PaymentMethod> CreatePaymentMethodAsync(PaymentMethod paymentMethod)
         {
             _context.PaymentMethods.Add(paymentMethod);
             await _context.SaveChangesAsync();
-            return paymentMethod.Id;
+            return paymentMethod;
         }
 
         public async Task<PaymentMethod> GetPaymentMethodAsync(int id)
         {
             return await _context.PaymentMethods.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<PaymentMethod> GetPaymentMethodAsync(string paymentMethodId)
+        {
+            return await _context.PaymentMethods.FirstOrDefaultAsync(p => p.PaymentMethodId == paymentMethodId);
         }
 
         public async Task<IEnumerable<PaymentMethod>> GetPaymentMethodsAsync(bool includeInactive = false)
@@ -36,21 +41,18 @@ namespace Payments.Api.PaymentMethodApi.Repositories
             return await _context.PaymentMethods.Where(pm => pm.Active).ToListAsync();
         }
 
-        public async Task UpdatePaymentMethodAsync(PaymentMethod paymentMethod)
+        public async Task UpdatePaymentMethodIdAsync(int id, string paymentMethodId)
         {
-            var pm = await _context.PaymentMethods.FirstOrDefaultAsync(p => p.Id == paymentMethod.Id);
-            pm.PaymentMethodId = paymentMethod.PaymentMethodId;
+            var pm = await _context.PaymentMethods.FirstOrDefaultAsync(p => p.Id == id);
+            pm.PaymentMethodId = paymentMethodId;
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeletePaymentMethodAsync(int id)
+        public async Task InactivatePaymentMethodAsync(int id, bool activeState, DateTime activeStateChangedOn)
         {
             var pm = await _context.PaymentMethods.FirstOrDefaultAsync(p => p.Id == id);
-            
-            // perform a soft delete
-            pm.Active = false;
-            pm.InactivatedOn = DateTime.UtcNow;
-
+            pm.Active = activeState;
+            pm.InactivatedOn = activeStateChangedOn;
             await _context.SaveChangesAsync();
         }
     }

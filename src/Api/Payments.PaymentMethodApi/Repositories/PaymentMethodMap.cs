@@ -1,8 +1,8 @@
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata.Builders;
-using Payments.Api.PaymentMethodApi.Models;
+using RiotGames.Payments.Api.PaymentMethodApi.Models;
 
-namespace Payments.Api.PaymentMethodApi.Repositories
+namespace RiotGames.Payments.Api.PaymentMethodApi.Repositories
 {
     public class PaymentMethodMap
     {

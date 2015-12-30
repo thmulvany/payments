@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Payments.Api.ApiKeyAuthentication.Services;
+using RiotGames.Payments.Api.ApiKeyAuthentication.Services;
 
-namespace Payments.Api.ApiKeyAuthentication
+namespace RiotGames.Payments.Api.ApiKeyAuthentication
 {
     public class Startup
     {

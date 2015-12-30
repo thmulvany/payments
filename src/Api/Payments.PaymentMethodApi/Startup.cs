@@ -1,17 +1,15 @@
-using System;
-using System.Text;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Payments.Api.PaymentMethodApi.Repositories;
-using Payments.Api.PaymentMethodApi.Services;
-using Payments.Api.ApiKeyAuthentication;
-using Payments.Api.ApiKeyAuthentication.Services;
+using RiotGames.Payments.Api.PaymentMethodApi.Repositories;
+using RiotGames.Payments.Api.PaymentMethodApi.Services;
+using RiotGames.Payments.Api.ApiKeyAuthentication;
+using RiotGames.Payments.Api.ApiKeyAuthentication.Services;
 
-namespace Payments.Api.PaymentMethodApi
+namespace RiotGames.Payments.Api.PaymentMethodApi
 {
     public class Startup
     {
@@ -33,10 +31,9 @@ namespace Payments.Api.PaymentMethodApi
                .AddNpgsql()
                .AddDbContext<PaymentMethodContext>(
                    options => { options.UseNpgsql(Configuration["Data:ConnectionString"]); });
-            
             services.AddTransient<IPaymentMethodService, PaymentMethodService>();
             services.AddTransient<IPaymentMethodRepo, PaymentMethodRepo>();
-            services.AddTransient<IAuthenticationService, ApiKeyAuthenticationService>();
+            services.AddSingleton<IAuthenticationService, ApiKeyAuthenticationService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -44,9 +41,8 @@ namespace Payments.Api.PaymentMethodApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseStaticFiles();
             app.UseBasicAuthentication();
-
+            app.UseStaticFiles();
             app.UseMvc();
         }
 

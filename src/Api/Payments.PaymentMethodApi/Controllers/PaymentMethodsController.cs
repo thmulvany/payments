@@ -1,48 +1,54 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using Payments.Api.PaymentMethodApi.Exceptions;
-using Payments.Api.PaymentMethodApi.Models;
-using Payments.Api.PaymentMethodApi.Services;
+using Microsoft.Extensions.Logging;
+using RiotGames.Payments.Api.PaymentMethodApi.Exceptions;
+using RiotGames.Payments.Api.PaymentMethodApi.Models;
+using RiotGames.Payments.Api.PaymentMethodApi.Services;
 
-namespace Payments.Api.PaymentMethodApi.Controllers
+namespace RiotGames.Payments.Api.PaymentMethodApi.Controllers
 {
     [Route("payments/api/v1/[controller]")]
     public class PaymentMethodsController : Controller
     {
-        [FromServices]
-        public IPaymentMethodService PaymentMethodService { get; set; }
+        private readonly IPaymentMethodService _service;
+        private readonly ILogger<PaymentMethodsController> _logger;
+
+        public PaymentMethodsController(IPaymentMethodService service, ILogger<PaymentMethodsController> logger)
+        {
+            _logger = logger;
+            _service = service;
+        }
 
         [HttpGet]
         public async Task<IEnumerable<PaymentMethod>> GetActive()
         {
-            return await PaymentMethodService.GetPaymentMethodsAsync();
+            return await _service.GetPaymentMethodsAsync();
         }
 
-        [HttpGet("/all")]
+        [HttpGet("all")]
         public async Task<IEnumerable<PaymentMethod>> GetAll()
         {
-            return await PaymentMethodService.GetPaymentMethodsAsync(true);
+            return await _service.GetPaymentMethodsAsync(true);
         }
 
         [HttpGet("{id:int}", Name = "GetPaymentMethod")]
         public async Task<PaymentMethod> GetById(int id)
         {
-            return await PaymentMethodService.GetPaymentMethodAsync(id);
+            _logger.LogInformation($"Received request for payment method with ID {id}");
+            return await _service.GetPaymentMethodAsync(id);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PaymentMethod paymentMethod)
         {
-            if (paymentMethod == null)
+            if (!ModelState.IsValid)
             {
                 return HttpBadRequest();
             }
             try
             {
-                await PaymentMethodService.AddPaymentMethodAsync(paymentMethod);
+                await _service.AddPaymentMethodAsync(paymentMethod);
                 return CreatedAtRoute("GetPaymentMethod", new { controller = "PaymentMethods", id = paymentMethod.Id },
                     paymentMethod);
             }
@@ -61,7 +67,7 @@ namespace Payments.Api.PaymentMethodApi.Controllers
 
             try
             {
-                await PaymentMethodService.AssignPaymentMethodIdAsync(paymentMethod);
+                await _service.AssignPaymentMethodIdAsync(paymentMethod);
                 return new NoContentResult();
             }
             catch (PaymentMethodNotFoundException)
@@ -79,7 +85,7 @@ namespace Payments.Api.PaymentMethodApi.Controllers
         {
             try
             {
-                await PaymentMethodService.InactivatePaymentMethodAsync(id);
+                await _service.InactivatePaymentMethodAsync(id);
                 return new HttpOkResult();
             }
             catch (PaymentMethodNotFoundException)

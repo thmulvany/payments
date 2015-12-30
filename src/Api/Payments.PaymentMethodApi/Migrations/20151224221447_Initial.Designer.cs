@@ -1,11 +1,10 @@
 using System;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
-using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations;
-using Payments.Api.PaymentMethodApi.Repositories;
+using RiotGames.Payments.Api.PaymentMethodApi.Repositories;
 
-namespace Payments.PaymentMethodApi.Migrations
+namespace RiotGames.Payments.Api.PaymentMethodApi.Migrations
 {
     [DbContext(typeof(PaymentMethodContext))]
     [Migration("20151224221447_Initial")]
@@ -16,7 +15,7 @@ namespace Payments.PaymentMethodApi.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
 
-            modelBuilder.Entity("Payments.Api.PaymentMethodApi.Models.PaymentMethod", b =>
+            modelBuilder.Entity("RiotGames.Payments.Api.PaymentMethodApi.Models.PaymentMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

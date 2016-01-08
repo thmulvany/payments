@@ -1,0 +1,33 @@
+{
+  "webroot": "wwwroot",
+  "version": "1.0.0-*",
+  "tooling": {
+    "defaultNamespace": "RiotGames.Payments.Api.ApiKeyAuthentication"
+  },
+  "commands": {
+    "web": "Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:5000"
+  },
+
+  "frameworks": {
+    "dnxcore50": {
+      "dependencies": {
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final"
+      }
+    }
+  },
+
+  "publishExclude": [
+    "node_modules",
+    "bower_components",
+    "**.xproj",
+    "**.user",
+    "**.vspscc"
+  ],
+  "exclude": [
+    "wwwroot",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+  }
+}

@@ -11,6 +11,7 @@
     "ef": "EntityFramework.Commands",
     "test": "xunit.runner.dnx"
   },
+  "dependencies": { },
   "frameworks": {
     "dnxcore50": {
       "dependencies": {
@@ -22,6 +23,8 @@
         "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
         "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
         "EntityFramework7.Npgsql": "3.1.0-rc1-3",
+        "runtime.linux.System.Net.NetworkInformation": "4.1.0-beta-23516",
+        "runtime.unix.System.Net.Security": "4.0.0-beta-23516",
         "EntityFramework.Core": "7.0.0-rc1-final",
         "EntityFramework.Commands": "7.0.0-rc1-final",
         "xunit": "2.1.0",
@@ -40,6 +43,5 @@
   "publishExclude": [
     "**.user",
     "**.vspscc"
-  ],
-  "dependencies": {  }
+  ]
 }

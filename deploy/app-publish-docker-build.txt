@@ -1,0 +1,10 @@
+cd into root of web ui/api proj and run:
+
+    dnu publish . --out ..\..\..\deploy\publish --configuration Release --runtime "dnx-coreclr-linux-x64.1.0.0-rc1-update1" --wwwroot "wwwroot" --wwwroot-out "wwwroot" --iis-command "web" --quiet
+
+then cd into that publish dir and run:
+
+    docker build -t [all lower case image tag] -f .\approot\src\[project folder]\Dockerfile .
+
+image tags should be project with lower case and dash-separated words
+e.g. PaymentMethodApi => payment-method-api 
